@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import loading from '../../assets/images/loading-white.svg';
 
 interface ButtonProps {
   text: string;
@@ -14,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button className={`btn ${additionalClasses || ''}`}>
-      {!isLoading ? text : 'Loading...'}
+      {!isLoading ? text : <img src={loading} alt="Loading..." />}
     </button>
   );
 };
