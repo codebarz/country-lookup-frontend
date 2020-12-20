@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  background: #fff;
 }
 .main-header span {
   filter: grayscale(100%);
