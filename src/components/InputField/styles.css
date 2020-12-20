@@ -1,0 +1,19 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.input-wrapper label {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.input-wrapper input {
+  border: 1px solid #f7f7f7;
+  padding: 15px;
+  outline: none;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .input-wrapper {
+  }
+}
