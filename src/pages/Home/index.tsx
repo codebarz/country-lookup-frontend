@@ -3,7 +3,7 @@ import Layout from '../../commons/Layout';
 import Input from '../../components/InputField';
 import ResultCard, { Country } from '../../components/ResultCard';
 import endpoints from '../../action/endpoint';
-import { post } from '../../helpers/request';
+import { get } from '../../helpers/request';
 import loadingIndicator from '../../assets/images/loading-blue.svg';
 import toast from 'react-hot-toast';
 import './styles.css';
@@ -23,11 +23,9 @@ const Home = () => {
     }
     const holdRequest = setTimeout(() => {
       if (searchQuery && searchQuery.trim().length) {
-        post(
-          endpoints.searchCountry(searchQuery.trim()),
-          { 'Content-Type': 'application/json' },
-          {},
-        )
+        get(endpoints.searchCountry(searchQuery.trim()), {
+          'Content-Type': 'application/json',
+        })
           .then((response) => {
             setIsLoading(false);
             if (response.status === 200) {
