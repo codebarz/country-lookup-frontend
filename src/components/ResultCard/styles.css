@@ -1,5 +1,5 @@
 .single-country {
-  width: 28%;
+  width: 88%;
   margin: 10px 0;
   border: 1px solid #f0f0f0;
   box-shadow: none;
@@ -72,4 +72,10 @@
   .currency-converter
   .currency-input:first-child {
   margin-right: 5px;
+}
+
+@media (min-width: 768px) {
+  .single-country {
+    width: 28%;
+  }
 }

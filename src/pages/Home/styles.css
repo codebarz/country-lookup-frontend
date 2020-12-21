@@ -4,7 +4,7 @@
   padding-top: 70px;
   display: flex;
   flex-direction: column;
-  max-width: 980px;
+  width: 90%;
   margin: auto;
 }
 
@@ -40,4 +40,10 @@
 
 .search-loading img {
   width: 50px;
+}
+
+@media (min-width: 768px) {
+  .home-wrapper {
+    max-width: 980px;
+  }
 }
