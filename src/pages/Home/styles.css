@@ -1,0 +1,49 @@
+@import '../../__variables.css';
+
+.home-wrapper {
+  padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+}
+
+.search-input {
+  margin-top: 20px;
+}
+
+#search {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+#no-results {
+  font-size: 3rem;
+  margin: auto;
+  padding: 50px 0;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.search-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.search-loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-loading img {
+  width: 50px;
+}
+
+@media (min-width: 768px) {
+  .home-wrapper {
+    max-width: 980px;
+  }
+}

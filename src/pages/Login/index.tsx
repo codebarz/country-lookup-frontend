@@ -7,6 +7,7 @@ import { post } from '../../helpers/request';
 import endpoints from '../../action/endpoint';
 import cookie from 'js-cookie';
 import { useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import './styles.css';
 
 const Login = () => {
@@ -21,6 +22,7 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    const loadingToast = toast.loading('One minute!.');
     post(
       endpoints.login,
       { 'Content-Type': 'application/json' },
@@ -29,13 +31,16 @@ const Login = () => {
       .then((response) => {
         setIsLoading(false);
         if (response.status === 200) {
+          toast.dismiss(loadingToast);
+          toast.success('Login successful');
           cookie.set('gid', response.data.token);
           history.push('/');
         }
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log(error);
+        toast.dismiss(loadingToast);
+        toast.error(error.response.data.message);
       });
   };
 
