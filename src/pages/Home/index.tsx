@@ -69,7 +69,7 @@ const Home = () => {
         <section className="search-input">
           <Input
             label="Enter country name"
-            type="search"
+            type="text"
             value={searchQuery}
             name="search"
             onChange={handleChange}
