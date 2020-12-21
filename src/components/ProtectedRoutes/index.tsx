@@ -16,7 +16,7 @@ const ProtectedRoute: React.FC<ComponentProps> = ({
   const isAuthenticated = cookie.get('gid');
 
   return isAuthenticated ? (
-    <Route component={Component} path={path} exact={exact} />
+    <Route component={Component} path={path} exact />
   ) : (
     <Redirect to="/login" />
   );

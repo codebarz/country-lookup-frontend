@@ -14,6 +14,10 @@
   border-radius: 4px;
 }
 
+.input-wrapper input[type='text']:disabled {
+  background: #ffffff;
+}
+
 @media (min-width: 768px) {
   .input-wrapper {
   }
