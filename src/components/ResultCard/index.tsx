@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import endpoints from '../../action/endpoint';
+import { post } from '../../helpers/request';
 import numberToCurrency from '../../helpers/toCurrency';
 import Card from '../Card';
-import Input from '../InputField';
+import CurrecnyConverter from '../CurrencyConverter';
+import loadingIndicator from '../../assets/images/loading-blue.svg';
 import './styles.css';
 
 interface Currencies {
@@ -27,10 +30,46 @@ const ResultCard: React.FC<Country> = ({
     currencies[0].code,
   );
 
+  const [toSEK, setToSEK] = useState<number>(currencyToSEK);
+  const [currencyValue, setCurrencyValue] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const holdRequest = setTimeout(() => {
+      if (currencyValue) {
+        setIsLoading(true);
+        post(
+          endpoints.convertCurrency,
+          { 'Content-Type': 'application/json' },
+          { code: currencyInView, amount: currencyValue, convertToCode: 'SEK' },
+        )
+          .then((response) => {
+            setIsLoading(false);
+            if (response.status === 200) {
+              console.log(response.data.conversion);
+              setToSEK(response.data.conversion);
+            }
+          })
+          .catch((error) => {
+            setIsLoading(false);
+            console.log(error);
+          });
+      }
+    }, 3000);
+
+    return () => clearTimeout(holdRequest);
+  }, [currencyValue, currencyInView]);
+
   const handleCurrencyInView = (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
   ) => {
     setCurrencyInView(e.currentTarget.innerText);
+  };
+
+  const handleCurrencyValueChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setCurrencyValue(+e.target.value);
   };
 
   const renderCurrency = (currencies: Currencies[]) => {
@@ -60,34 +99,26 @@ const ResultCard: React.FC<Country> = ({
         </p>
         <ul>{renderCurrency(currencies)}</ul>
         <div className="currency-converter-wrapper">
-          <h4>Currency Converter</h4>
+          <h4>
+            Currency Converter{' '}
+            {isLoading ? (
+              <span>
+                <img src={loadingIndicator} alt="Loading..." />
+              </span>
+            ) : null}
+          </h4>
           {currencies.length > 1 ? (
             <div className="currency-options">
               <ul>{renderCurrencyOptions(currencies)}</ul>
             </div>
           ) : null}
-          <div className="currency-converter">
-            <Input
-              type="number"
-              value="1"
-              label={currencyInView}
-              showLabel
-              onChange={() => {}}
-              name=""
-              id=""
-              aditionalClass="currency-input"
-            />
-            <Input
-              type="number"
-              value={currencyToSEK.toString()}
-              label="SEK"
-              showLabel
-              onChange={() => {}}
-              name=""
-              id=""
-              aditionalClass="currency-input"
-            />
-          </div>
+          <CurrecnyConverter
+            currencyInViewCode={currencyInView}
+            currencyToConvertToCode="SEK"
+            conversionValue={toSEK}
+            onCurrencyChange={handleCurrencyValueChange}
+            currencyValue={currencyValue}
+          />
         </div>
       </article>
     </Card>
