@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'WorkSans';
+  src: url('./assets/fonts/WorkSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DMSerifText';
+  src: url('./assets/fonts/DMSerifText-Regular.ttf') format('truetype');
+}
+
+:root {
+  --default-font-family: 'WorkSans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  --logoFont: 'DMSerifText';
+  --primaryColor: #0067b8;
+}

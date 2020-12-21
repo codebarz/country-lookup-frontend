@@ -1,3 +1,3 @@
 ## Country Lookup Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This can be previewed [here](https://countries-lookup.netlify.app).
