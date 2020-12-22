@@ -1,0 +1,15 @@
+.suspense-loading {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.suspense-loading img {
+  width: 100px;
+  height: 100px;
+}
