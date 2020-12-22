@@ -17,7 +17,11 @@ export const get = (
   })
     .then((response) => response)
     .catch((error) => {
-      throw new Error(error);
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(error);
+      }
     });
 };
 
@@ -32,6 +36,10 @@ export const post = (
   return axios({ url, headers: requestHeader, data, method: 'POST' })
     .then((response) => response)
     .catch((error) => {
-      throw new Error(error);
+      if (error.response && error.response.data) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(error);
+      }
     });
 };
