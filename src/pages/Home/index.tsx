@@ -18,9 +18,6 @@ const Home = () => {
   //Send search request 3 seconds after user stops typing
   //instead of on every key press
   useEffect(() => {
-    if (!searchResults) {
-      setIsLoading(false);
-    }
     if (searchQuery && searchQuery.trim().length) {
       setIsLoading(true);
     }
@@ -44,7 +41,7 @@ const Home = () => {
     }, 3000);
 
     return () => clearTimeout(holdRequest);
-  }, [searchQuery, searchResults]);
+  }, [searchQuery]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
