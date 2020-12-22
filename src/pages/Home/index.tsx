@@ -18,6 +18,9 @@ const Home = () => {
   //Send search request 3 seconds after user stops typing
   //instead of on every key press
   useEffect(() => {
+    if (!searchResults) {
+      setIsLoading(false);
+    }
     if (searchQuery && searchQuery.trim().length) {
       setIsLoading(true);
     }
@@ -35,6 +38,7 @@ const Home = () => {
           .catch((error) => {
             setIsLoading(false);
             toast.error(error.message);
+            setSearchResults(null);
           });
       }
     }, 3000);
