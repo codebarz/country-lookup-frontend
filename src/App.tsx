@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import ProtectedRoute from './components/ProtectedRoutes';
+import Loading from './commons/Loading';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const LoginPage = lazy(() => import('./pages/Login'));
@@ -10,7 +11,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFound'));
 
 function App() {
   return (
-    <Suspense fallback="Loading...">
+    <Suspense fallback={<Loading />}>
       <Router>
         <Switch>
           <ProtectedRoute exact={true} path="/" Component={HomePage} />
