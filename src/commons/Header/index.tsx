@@ -1,14 +1,16 @@
 import Button from '../../components/Button';
 import cookie from 'js-cookie';
-import { useHistory } from 'react-router-dom';
 import './styles.css';
+import { useUserContext } from '../../store/userContext';
 
 const Header = () => {
-  const token = cookie.get('gid');
-  const history = useHistory();
-  const handleLogout = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    cookie.remove('gid');
-    history.push('/login');
+  const { token, setUserToken } = useUserContext();
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    await cookie.remove('gid');
+    setUserToken!('');
+    window.location.href = '/login';
   };
   return (
     <header className="main-header">
