@@ -6,6 +6,8 @@ import Card from '../Card';
 import CurrecnyConverter from '../CurrencyConverter';
 import loadingIndicator from '../../assets/images/loading-blue.svg';
 import './styles.css';
+import { useUserContext } from '../../store/userContext';
+import { useLocation } from 'react-router-dom';
 
 interface Currencies {
   code: string;
@@ -33,14 +35,21 @@ const ResultCard: React.FC<Country> = ({
   const [toSEK, setToSEK] = useState<number>(currencyToSEK);
   const [currencyValue, setCurrencyValue] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { token } = useUserContext();
+  const { state } = useLocation();
 
   useEffect(() => {
     const holdRequest = setTimeout(() => {
       if (currencyValue) {
         setIsLoading(true);
+        const locationState = state as { token: string };
+        const userToken = locationState.token || token;
         post(
           endpoints.convertCurrency,
-          { 'Content-Type': 'application/json' },
+          {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
           { code: currencyInView, amount: currencyValue, convertToCode: 'SEK' },
         )
           .then((response) => {
@@ -58,7 +67,7 @@ const ResultCard: React.FC<Country> = ({
     }, 3000);
 
     return () => clearTimeout(holdRequest);
-  }, [currencyValue, currencyInView]);
+  }, [currencyValue, currencyInView, state, token]);
 
   const handleCurrencyInView = (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
