@@ -48,7 +48,7 @@ const Home = () => {
     }, 3000);
 
     return () => clearTimeout(holdRequest);
-  }, [searchQuery]);
+  }, [searchQuery, state, token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
