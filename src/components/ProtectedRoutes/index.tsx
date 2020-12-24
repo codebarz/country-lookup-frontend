@@ -1,6 +1,6 @@
 import React from 'react';
 import cookie from 'js-cookie';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation } from 'react-router-dom';
 
 interface ComponentProps {
   Component: React.FC<any>;
@@ -14,8 +14,10 @@ const ProtectedRoute: React.FC<ComponentProps> = ({
   exact,
 }) => {
   const isAuthenticated = cookie.get('gid');
+  const { state } = useLocation();
+  const locationState = state as { token: string };
 
-  return isAuthenticated ? (
+  return locationState?.token ? (
     <Route component={Component} path={path} exact />
   ) : (
     <Redirect to="/login" />

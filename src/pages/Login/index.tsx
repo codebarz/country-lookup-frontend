@@ -9,6 +9,7 @@ import cookie from 'js-cookie';
 import { useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import './styles.css';
+import { useUserContext } from '../../store/userContext';
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState<string>('');
@@ -18,6 +19,8 @@ const Login = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserEmail(e.target.value);
   };
+
+  const { setUserToken } = useUserContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +37,11 @@ const Login = () => {
           toast.dismiss(loadingToast);
           toast.success('Login successful');
           cookie.set('gid', response.data.token);
-          history.push('/');
+          setUserToken!(response.data.token);
+          history.push({
+            pathname: '/',
+            state: { token: response.data.token },
+          });
         }
       })
       .catch((error) => {
