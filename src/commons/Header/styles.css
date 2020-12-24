@@ -1,7 +1,7 @@
 @import '../../__variables.css';
 
 .main-header {
-  width: 100%;
+  width: 95%;
   height: 70px;
   border-bottom: 1px solid #f7f7f7;
   position: fixed;
@@ -11,7 +11,16 @@
   justify-content: center;
   font-size: 2rem;
   background: #fff;
+  left: 2.5%;
+}
+
+.main-header .logo {
+  margin: auto;
 }
 .main-header span {
   filter: grayscale(100%);
+}
+
+.main-header .logout-button {
+  margin-top: 0;
 }
