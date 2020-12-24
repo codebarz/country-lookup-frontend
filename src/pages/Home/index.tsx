@@ -7,6 +7,8 @@ import { get } from '../../helpers/request';
 import loadingIndicator from '../../assets/images/loading-blue.svg';
 import toast from 'react-hot-toast';
 import './styles.css';
+import { useUserContext } from '../../store/userContext';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -14,6 +16,8 @@ const Home = () => {
     null,
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { token } = useUserContext();
+  const { state } = useLocation();
 
   //Send search request 3 seconds after user stops typing
   //instead of on every key press
@@ -23,8 +27,11 @@ const Home = () => {
     }
     const holdRequest = setTimeout(() => {
       if (searchQuery && searchQuery.trim().length) {
+        const locationState = state as { token: string };
+        const userToken = locationState.token || token;
         get(endpoints.searchCountry(searchQuery.trim()), {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
         })
           .then((response) => {
             setIsLoading(false);
@@ -41,7 +48,7 @@ const Home = () => {
     }, 3000);
 
     return () => clearTimeout(holdRequest);
-  }, [searchQuery]);
+  }, [searchQuery, state, token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);

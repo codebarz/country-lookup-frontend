@@ -7,12 +7,9 @@ export const get = (
   url: string,
   headers: Record<string, unknown>,
 ): Promise<AxiosResponse<any>> => {
-  const requestHeader = token
-    ? { ...headers, authorization: `Bearer ${token}` }
-    : { ...headers };
   return axios({
     url,
-    headers: requestHeader,
+    headers,
     method: 'GET',
   })
     .then((response) => response)
