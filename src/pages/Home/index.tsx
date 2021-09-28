@@ -61,8 +61,8 @@ const Home = () => {
           <ResultCard
             key={country.name}
             name={country.name}
-            currencies={country.currencies}
-            population={country.population}
+            currency={country.currency}
+            population={country?.population}
             currencyToSEK={country.currencyToSEK}
           />
         );
