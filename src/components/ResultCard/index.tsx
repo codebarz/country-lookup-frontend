@@ -16,7 +16,7 @@ interface Currencies {
 }
 
 export interface Country {
-  currencies: Currencies[];
+  currency: string;
   name: string;
   population: number;
   currencyToSEK: number;
@@ -25,12 +25,10 @@ export interface Country {
 const ResultCard: React.FC<Country> = ({
   name,
   population,
-  currencies,
+  currency,
   currencyToSEK,
 }) => {
-  const [currencyInView, setCurrencyInView] = useState<string>(
-    currencies[0].code,
-  );
+  const [currencyInView, setCurrencyInView] = useState<string>(currency);
 
   const [toSEK, setToSEK] = useState<number>(currencyToSEK);
   const [currencyValue, setCurrencyValue] = useState<number>(1);
@@ -55,7 +53,6 @@ const ResultCard: React.FC<Country> = ({
           .then((response) => {
             setIsLoading(false);
             if (response.status === 200) {
-              console.log(response.data.conversion);
               setToSEK(response.data.conversion);
             }
           })
@@ -101,12 +98,15 @@ const ResultCard: React.FC<Country> = ({
       <article>
         <h2>{name}</h2>
         <p className="country-detail">
-          <span>Population</span>: {numberToCurrency(population)}
+          <span>Population</span>:{' '}
+          {population ? numberToCurrency(population) : 'N/A'}
         </p>
         <p className="country-detail">
           <span>Currencies (code name symbol):</span>
         </p>
-        <ul>{renderCurrency(currencies)}</ul>
+        <ul>
+          <li>{currency}</li>
+        </ul>
         <div className="currency-converter-wrapper">
           <h4>
             Currency Converter{' '}
@@ -116,9 +116,11 @@ const ResultCard: React.FC<Country> = ({
               </span>
             ) : null}
           </h4>
-          {currencies.length > 1 ? (
+          {currency ? (
             <div className="currency-options">
-              <ul>{renderCurrencyOptions(currencies)}</ul>
+              <ul>
+                <li>{currency}</li>
+              </ul>
             </div>
           ) : null}
           <CurrecnyConverter
