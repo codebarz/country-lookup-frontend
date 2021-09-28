@@ -9,11 +9,11 @@ import './styles.css';
 import { useUserContext } from '../../store/userContext';
 import { useLocation } from 'react-router-dom';
 
-interface Currencies {
-  code: string;
-  name: string;
-  symbol: string;
-}
+// interface Currencies {
+//   code: string;
+//   name: string;
+//   symbol: string;
+// }
 
 export interface Country {
   currency: string;
@@ -28,7 +28,7 @@ const ResultCard: React.FC<Country> = ({
   currency,
   currencyToSEK,
 }) => {
-  const [currencyInView, setCurrencyInView] = useState<string>(currency);
+  const [currencyInView] = useState<string>(currency);
 
   const [toSEK, setToSEK] = useState<number>(currencyToSEK);
   const [currencyValue, setCurrencyValue] = useState<number>(1);
@@ -66,11 +66,11 @@ const ResultCard: React.FC<Country> = ({
     return () => clearTimeout(holdRequest);
   }, [currencyValue, currencyInView, state, token]);
 
-  const handleCurrencyInView = (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
-  ) => {
-    setCurrencyInView(e.currentTarget.innerText);
-  };
+  // const handleCurrencyInView = (
+  //   e: React.MouseEvent<HTMLLIElement, MouseEvent>,
+  // ) => {
+  //   setCurrencyInView(e.currentTarget.innerText);
+  // };
 
   const handleCurrencyValueChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -78,20 +78,20 @@ const ResultCard: React.FC<Country> = ({
     setCurrencyValue(+e.target.value);
   };
 
-  const renderCurrency = (currencies: Currencies[]) => {
-    return currencies?.map((currency) => (
-      <li key={currency.name}>
-        {currency.code} {currency.name} {currency.symbol}
-      </li>
-    ));
-  };
+  // const renderCurrency = (currencies: Currencies[]) => {
+  //   return currencies?.map((currency) => (
+  //     <li key={currency.name}>
+  //       {currency.code} {currency.name} {currency.symbol}
+  //     </li>
+  //   ));
+  // };
 
-  const renderCurrencyOptions = (currencies: Currencies[]) =>
-    currencies.map((currency) => (
-      <li key={currency.name} onClick={handleCurrencyInView}>
-        {currency.code}
-      </li>
-    ));
+  // const renderCurrencyOptions = (currencies: Currencies[]) =>
+  //   currencies.map((currency) => (
+  //     <li key={currency.name} onClick={handleCurrencyInView}>
+  //       {currency.code}
+  //     </li>
+  //   ));
 
   return (
     <Card additionalClasses="single-country">
